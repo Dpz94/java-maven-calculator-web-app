@@ -45,7 +45,7 @@ pipeline {
         stage ('deploy the code') { 
           when {
             expression {
-              params.action == "deploy" || params.action == "all"
+              params.deployment == true || params.action == "all"
             }
           }              
             steps {
