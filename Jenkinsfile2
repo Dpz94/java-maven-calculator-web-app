@@ -23,16 +23,31 @@ pipeline {
           }
         }
         stage ('compile code') {
+          when {
+            expression {
+              params.action == "compile" || params.action == "all"
+            }
+          }        
             steps {
                 sh 'mvn compile'
             }
         }
-        stage ('package code') {          
+        stage ('package code') {   
+          when {
+            expression {
+              params.action == "package" || params.action == "all"
+            }
+          }              
             steps {
                 sh 'mvn package'
             }
         }
-        stage ('deploy the code') {           
+        stage ('deploy the code') { 
+          when {
+            expression {
+              params.action == "deploy" || params.action == "all"
+            }
+          }              
             steps {
               echo "Code has been deployed successfully"
             }
